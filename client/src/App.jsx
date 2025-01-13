@@ -1,5 +1,6 @@
 
 import './App.css'
+import React, { useState } from "react";
 import {Routes, Route} from 'react-router-dom';
 import Home from './pages/Home'
 import Register from './pages/Register';
@@ -14,10 +15,18 @@ axios.defaults.baseURL = 'http://localhost:8000';
 axios.defaults.withCredentials = true
 
 function App() {
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const handleLogin = () => {
+    setIsLoggedIn(true); // Update the login state
+  };
+
+  const handleLogout = () => {
+    setIsLoggedIn(false); // Reset the login state
+  };
   
   return (
     <UserContextProvider>
-    <Navbar/>
+    {isLoggedIn && (<Navbar/>)}
     <Toaster position='bottom-right' toastOptions={{duration: 2000}} />
     <Routes>
       <Route path='/' element={<Home/>}/>
