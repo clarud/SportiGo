@@ -1,0 +1,79 @@
+/* Full-page container */
+.container {
+    display: flex;
+    overflow-x: hidden;
+    overflow-y: hidden;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    width: 100vw;
+    background: linear-gradient(135deg, #ffffff, #EDF4C2); /* Gradient background */
+    color: #EB5A3C;
+    font-family: 'Arial', sans-serif;
+    text-align: center;
+}
+
+.content {
+    overflow-x: hidden;
+    overflow-y: hidden;
+    max-width: 600px;
+    padding: 2rem;
+    background: rgba(255, 255, 255, 0); /* Semi-transparent background */
+    border-radius: 8px;
+}
+
+/* Title styling */
+.title {
+    font-size: 3rem;
+    font-weight: bold;
+    margin-bottom: 1rem;
+}
+
+/* Subtitle styling */
+.subtitle {
+    font-size: 1.2rem;
+    margin-bottom: 2rem;
+    line-height: 1.5;
+}
+
+/* Buttons container */
+.buttons {
+    display: flex;
+    gap: 1rem;
+    justify-content: center;
+}
+
+
+/* Primary button styling */
+.primaryButton {
+    padding: 0.8rem 1.5rem;
+    font-size: 1rem;
+    background-color: #EB5A3C;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.primaryButton:hover {
+    color: white;
+    background-color: #c04830; 
+}
+
+/* Secondary button styling */
+.secondaryButton {
+    padding: 0.8rem 1.5rem;
+    font-size: 1rem;
+    background-color: transparent;
+    color: #EB5A3C;
+    border: 2px solid #EB5A3C;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s, color 0.3s;
+}
+
+.secondaryButton:hover {
+    background-color: white;
+    color: #ef6f56; 
+}
