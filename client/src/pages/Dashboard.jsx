@@ -75,7 +75,7 @@ export default function Dashboard() {
                 </svg>
               </div>
               <div className="ml-4">
-                <p className="text-gray-700">Clients</p>
+                <p className="text-gray-700">Matches</p>
                 <p className="text-2xl font-bold">512</p>
               </div>
             </div>
@@ -93,7 +93,7 @@ export default function Dashboard() {
                 </svg>
               </div>
               <div className="ml-4">
-                <p className="text-gray-700">Sales</p>
+                <p className="text-gray-700">Skill Rating</p>
                 <p className="text-2xl font-bold">$7,770</p>
               </div>
             </div>
