@@ -1,7 +1,12 @@
-import { Link } from "react-router-dom"
+import { Link } from "react-router-dom";
+import { useContext } from "react";
+import { UserContext } from "../UserContext";
 
 export default function Navbar() {
+  const { user } = useContext(UserContext); // Access user state from context
+
   return (
+
     <nav className="bg-orange-light p-4 fixed top-1 left-0 w-screen shadow-md z-50 rounded-3xl">
             <div className="container mx-auto flex justify-between items-center">
                 {/* Left-aligned Home link */}
@@ -23,4 +28,5 @@ export default function Navbar() {
             </div>
         </nav>
   )
+
 }

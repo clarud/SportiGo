@@ -1,14 +1,17 @@
-import { useState } from "react"
-import axios from 'axios'
-import {toast} from 'react-hot-toast'
-import {Navigate, useNavigate} from 'react-router-dom'
+import { useState, useContext } from "react"; // Import useContext
+import axios from "axios";
+import { toast } from "react-hot-toast";
+import { useNavigate } from "react-router-dom";
+import { UserContext } from "../UserContext"; // Import UserContext
 
 export default function Login() {
-  const navigate = useNavigate()
+  const navigate = useNavigate();
+  const { setUser } = useContext(UserContext); // Access setUser from UserContext
+
   const [data, setData] = useState({
-    email: '',
-    password: '',
-  })
+    email: "",
+    password: "",
+  });
 
   const loginUser= async (e) => {
     e.preventDefault()
@@ -24,12 +27,13 @@ export default function Login() {
           navigate('/dashboard')
           handleLogin
         }
-      } catch (error) {
-        
-      }
-  }
+    } catch (error) {
+      console.error("Login error:", error.response?.data || error.message); // Log error
+    }
+  };
 
   return (
+
     <div className="bg-white w-screen">
       <div className="min-h-screen min-w-screen flex flex-col justify-center">
         <div className="grid md:grid-cols-2 items-center gap-4 max-md:gap-8 max-w-6xl max-md:max-w-lg w-full p-4 m-4 shadow-[0_2px_10px_-3px_rgba(6,81,237,0.3)] rounded-md">

@@ -1,4 +1,3 @@
-
 import './App.css'
 import React, { useState } from "react";
 import {Routes, Route} from 'react-router-dom';
@@ -7,12 +6,15 @@ import Register from './pages/Register';
 import Login from './pages/Login';
 import Navbar from './component/Navbar';
 import axios from 'axios';
-import {Toaster} from 'react-hot-toast'
-import { UserContextProvider } from '../context/userContext';
+import { Toaster } from 'react-hot-toast';
+import { UserContextProvider } from "./UserContext";
 import Dashboard from './pages/Dashboard';
+import CreateProfile from './pages/CreateProfile';
+import UpdateProfile from './pages/UpdateProfile';
+import ProtectedRoute from "./ProtectedRoute";
 
 axios.defaults.baseURL = 'http://localhost:8000';
-axios.defaults.withCredentials = true
+axios.defaults.withCredentials = true;
 
 function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
@@ -33,9 +35,11 @@ function App() {
       <Route path='/register' element={<Register/>}/>
       <Route path='/login' element={<Login/>}/>
       <Route path='/dashboard' element={<Dashboard/>}/>
+      <Route path="/create-profile" element={<ProtectedRoute><CreateProfile /></ProtectedRoute>} />
+      <Route path="/update-profile" element={<ProtectedRoute><UpdateProfile /></ProtectedRoute>} />
     </Routes>
     </UserContextProvider>
-  )
+  );
 }
 
-export default App
+export default App;
