@@ -6,20 +6,27 @@ export default function Navbar() {
   const { user } = useContext(UserContext); // Access user state from context
 
   return (
-    <nav>
-      <Link to="/">Home</Link>
-      {!user ? (
-        <>
-          <Link to="/register">Register</Link>
-          <Link to="/login">Login</Link>
-        </>
-      ) : (
-        <>
-          <Link to="/dashboard">Dashboard</Link>
-          <Link to="/create-profile">Create Profile</Link>
-          <Link to="/update-profile">Update Profile</Link>
-        </>
-      )}
-    </nav>
-  );
+
+    <nav className="bg-orange-light p-4 fixed top-1 left-0 w-screen shadow-md z-50 rounded-3xl">
+            <div className="container mx-auto flex justify-between items-center">
+                {/* Left-aligned Home link */}
+                <div>
+                    <Link to="/" className="text-white text-xl font-bold hover:text-orange-dark">
+                        Home
+                    </Link>
+                </div>
+
+                {/* Right-aligned Register and Login links */}
+                <div className="flex space-x-4">
+                    <Link to="/register" className="text-white hover:text-orange-dark">
+                        Register
+                    </Link>
+                    <Link to="/login" className="text-white hover:text-orange-dark">
+                        Login
+                    </Link>
+                </div>
+            </div>
+        </nav>
+  )
+
 }
