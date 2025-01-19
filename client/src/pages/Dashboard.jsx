@@ -1,39 +1,42 @@
 import { useContext } from 'react';
 import { UserContext } from "../../context/userContext";
+import { Link } from 'react-router-dom';
 
 export default function Dashboard() {
-    const {user} = useContext(UserContext)
+  const {user} = useContext(UserContext)
+  console.log("Current fetch:"+ user)
+
   return (
     <div className="flex h-screen w-screen bg-gray-100">
       {/* Sidebar */}
       <aside className="w-64 bg-orange-light text-white flex flex-col">
+        <div>Logo goes here</div>
         <div className="px-6 py-4">
-          <h1 className="text-2xl font-bold">Admin One</h1>
+        {!!user && (
+              <h1 className="text-2xl font-bold">{user.name}</h1>
+            )}
         </div>
         <nav className="flex-1 px-4 space-y-2">
           <a
             href="#"
-            className="flex items-center px-3 py-2 text-white rounded-md hover:bg-gray-700"
+            className="flex items-center px-3 py-2 text-white rounded-md bg-orange-dark hover:bg-gray-700"
           >
             Dashboard
           </a>
-          <a
-            href="#"
-            className="flex items-center px-3 py-2 text-white rounded-md hover:bg-gray-700"
-          >
-            Tables
-          </a>
-          <a
-            href="#"
-            className="flex items-center px-3 py-2 text-white rounded-md hover:bg-gray-700"
-          >
-            Forms
-          </a>
-          <a
-            href="#"
-            className="flex items-center px-3 py-2 text-white rounded-md hover:bg-gray-700"
-          >
+          <Link to="/update-profile" className="flex items-center px-3 py-2 text-white rounded-md hover:bg-gray-700">
             Profile
+          </Link>
+          <a
+            href="#"
+            className="flex items-center px-3 py-2 text-white rounded-md hover:bg-gray-700"
+          >
+            Matches
+          </a>
+          <a
+            href="#"
+            className="flex items-center px-3 py-2 text-white rounded-md hover:bg-gray-700"
+          >
+            History
           </a>
         </nav>
       </aside>
@@ -53,13 +56,22 @@ export default function Dashboard() {
               <span className="text-gray-700 font-bold">Hi, {user.name}!</span>
             )}
             <button className="bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-600">
-              Premium Demo
+              Log out
             </button>
           </div>
         </header>
 
         {/* Main Section */}
         <main className="flex-1 p-6">
+          <div className="bg-white shadow-lg rounded-lg gap-4 mb-6 h-1/3 flex">
+            <button className="ml-6 mt-6 bg-green-400 shadow-lg h-3/4 w-1/3"> Find Match </button>
+            <div className="ml=6 mt-6">
+              <label className='text-gray-700 font-bold'>
+                    Sport:
+                    {!!user && <label className='ml-3 text-gray-700'>{user.sport}</label>}
+                </label>
+            </div>
+          </div>
           {/* Stat Cards */}
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-6">
             {/* Card 1 */}

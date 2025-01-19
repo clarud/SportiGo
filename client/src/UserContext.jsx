@@ -11,6 +11,7 @@ export function UserContextProvider({ children }) {
     const checkAuth = async () => {
       try {
         const response = await axios.get("/profile");
+        console.log(response.data)
         setUser(response.data); // Set user data if logged in
       } catch (error) {
         console.error("Error checking authentication:", error); // Log the error

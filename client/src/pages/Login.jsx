@@ -25,7 +25,6 @@ export default function Login() {
         } else {
           setData({});
           navigate('/dashboard')
-          handleLogin
         }
     } catch (error) {
       console.error("Login error:", error.response?.data || error.message); // Log error
@@ -63,7 +62,7 @@ export default function Login() {
                   name="email"
                   type="email"
                   required
-                  className="rounded-lg w-full text-gray-800 text-sm border-b border-gray-300 focus:border-blue-600 pl-2 pr-8 py-3 outline-none"
+                  className="rounded-lg w-full text-gray-800 text-sm bg-white shadow-lg border-b border-orange-light focus:border-orange-light pl-2 pr-8 py-3 outline-none"
                   placeholder="Enter email"
                   value={data.email}
                   onChange={(e) => setData({ ...data, email: e.target.value })}
@@ -79,7 +78,7 @@ export default function Login() {
                   name="password"
                   type="password"
                   required
-                  className="rounded-lg w-full text-gray-800 text-sm border-b border-gray-300 focus:border-orange-light pl-2 pr-8 py-3 outline-none"
+                  className="rounded-lg w-full text-gray-800 text-sm border-b bg-white shadow-lg border-orange-light focus:border-orange-light pl-2 pr-8 py-3 outline-none"
                   placeholder="Enter password"
                   value={data.password}
                   onChange={(e) => setData({ ...data, password: e.target.value })}
