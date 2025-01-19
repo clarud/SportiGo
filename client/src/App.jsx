@@ -1,13 +1,13 @@
 import './App.css'
-import React, { useState } from "react";
+import React from "react";
 import {Routes, Route} from 'react-router-dom';
 import Home from './pages/Home'
 import Register from './pages/Register';
 import Login from './pages/Login';
 import Navbar from './component/Navbar';
+import { UserContextProvider } from "./UserContext";
 import axios from 'axios';
 import { Toaster } from 'react-hot-toast';
-import { UserContextProvider } from "./UserContext";
 import Dashboard from './pages/Dashboard';
 import CreateProfile from './pages/CreateProfile';
 import UpdateProfile from './pages/UpdateProfile';
@@ -17,18 +17,10 @@ axios.defaults.baseURL = 'http://localhost:8000';
 axios.defaults.withCredentials = true;
 
 function App() {
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
-  const handleLogin = () => {
-    setIsLoggedIn(true); // Update the login state
-  };
 
-  const handleLogout = () => {
-    setIsLoggedIn(false); // Reset the login state
-  };
-  
   return (
     <UserContextProvider>
-    {isLoggedIn && (<Navbar/>)}
+    {/* {(<Navbar/>)} */}
     <Toaster position='bottom-right' toastOptions={{duration: 2000}} />
     <Routes>
       <Route path='/' element={<Home/>}/>
