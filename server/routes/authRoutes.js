@@ -8,6 +8,7 @@ const {
     getProfile,
     findMatch,
     updateUserProfile,
+    logoutUser,
 } = require('../controllers/authController');
 
 // Enable CORS middleware
@@ -25,6 +26,7 @@ router.post('/login', loginUser); // Login endpoint
 router.get('/profile', getProfile); // Profile retrieval endpoint
 router.get('/match', findMatch); // Find match endpoint
 router.put('/update-profile', updateUserProfile); // Update profile endpoint
+router.post('/logout', logoutUser) //logout endpoint
 
 // Export the router to be used in your main server file
 module.exports = router;

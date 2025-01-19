@@ -70,18 +70,23 @@ const getProfile = async (req, res) => {
         const { token } = req.cookies;
         if (!token) return res.status(401).json({ error: 'Unauthorized' });
 
-        jwt.verify(token, process.env.JWT_SECRET, {}, async (err, decoded) => {
-            if (err) return res.status(403).json({ error: 'Invalid token' });
-
-            const user = await User.findById(decoded.id).select('-password');
-            if (!user) return res.status(404).json({ error: 'User not found' });
-
-            res.json(user);
-        });
-    } catch (error) {
-        console.error(error);
-        res.status(500).json({ error: 'Server error' });
+        const decoded = jwt.verify(token, process.env.JWT_SECRET);
+    const user = await User.findById(decoded.id).select("-password");
+    if (!user) {
+      console.error("User not found for ID:", decoded.id);
+      return res.status(404).json({ error: "User not found" });
     }
+
+    res.json(user);
+  } catch (error) {
+    if (error.name === "JsonWebTokenError" || error.name === "TokenExpiredError") {
+      console.error("JWT error:", error.message);
+      return res.status(403).json({ error: "Invalid or expired token" });
+    }
+
+    console.error("Server error:", error);
+    res.status(500).json({ error: "Server error" });
+  }
 };
 
 // Find matches endpoint
@@ -137,6 +142,16 @@ const updateUserProfile = async (req, res) => {
     }
 };
 
+const logoutUser = (req, res) => {
+    try {
+        res.clearCookie('token');
+        res.status(200).json({ message: 'Logged out successfully' });
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({ error: 'Server error during logout' });
+    }
+};
+
 // Export all controllers
 module.exports = {
     test,
@@ -145,4 +160,5 @@ module.exports = {
     getProfile,
     findMatch,
     updateUserProfile,
+    logoutUser,
 };

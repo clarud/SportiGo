@@ -1,29 +1,16 @@
-import { useState, useEffect } from "react";
+import { useState, useContext } from "react";
 import axios from "axios";
 import { Link } from 'react-router-dom';
+import { UserContext } from "../UserContext";
 
 export default function UpdateProfile() {
+    const { user, setUser } = useContext(UserContext); // Access user from context
+    console.log(user)
     const [formData, setFormData] = useState({
-        skillLevel: "",
-        preferredSport: "",
-        status: "",
+        skillLevel: user?.skillLevel || "Beginner",
+        preferredSport: user?.preferredSport || "",
+        status: user?.status || "Available",
     });
-
-    useEffect(() => {
-        const fetchProfile = async () => {
-            try {
-                const response = await axios.get("/profile", {
-                    withCredentials: true,
-                });
-                const { skillLevel, preferredSport, status } = response.data;
-                setFormData({ skillLevel, preferredSport, status });
-            } catch (error) {
-                console.error("Error fetching profile:", error.response?.data || error.message);
-            }
-        };
-
-        fetchProfile();
-    }, []);
 
     const handleChange = (e) => {
         setFormData({ ...formData, [e.target.name]: e.target.value });
@@ -31,12 +18,18 @@ export default function UpdateProfile() {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
+        if (!formData.status || !["Available", "Busy"].includes(formData.status)) {
+            alert("Please select a valid status.");
+            return;
+          }
+        
         try {
             const response = await axios.put("/update-profile", formData, {
                 withCredentials: true,
             });
             alert("Profile updated successfully!");
             console.log(response.data);
+            setUser({ ...user, ...formData }); // Update user context with new data
         } catch (error) {
             console.error("Error updating profile:", error.response?.data || error.message);
         }
@@ -48,6 +41,9 @@ export default function UpdateProfile() {
               <aside className="w-64 bg-orange-light text-white flex flex-col">
                 <div>Logo goes here</div>
                 <div className="px-6 py-4">
+                    {!!user && (
+                        <h1 className="text-2xl font-bold">{user.name}</h1>
+                        )}
                 </div>
                 <nav className="flex-1 px-4 space-y-2">
                   <Link

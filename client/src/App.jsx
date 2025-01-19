@@ -5,9 +5,9 @@ import Home from './pages/Home'
 import Register from './pages/Register';
 import Login from './pages/Login';
 import Navbar from './component/Navbar';
+import { UserContextProvider } from "./UserContext";
 import axios from 'axios';
 import { Toaster } from 'react-hot-toast';
-import { UserContextProvider } from "./UserContext";
 import Dashboard from './pages/Dashboard';
 import CreateProfile from './pages/CreateProfile';
 import UpdateProfile from './pages/UpdateProfile';

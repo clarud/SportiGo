@@ -1,10 +1,22 @@
-import { useContext } from 'react';
-import { UserContext } from "../../context/userContext";
+import { useContext, useState, useEffect } from 'react';
+import { UserContext } from "../UserContext";
 import { Link } from 'react-router-dom';
+import Logout from '../component/Logout'
 
 export default function Dashboard() {
-  const {user} = useContext(UserContext)
+  const {user, loading, fetchUserData} = useContext(UserContext)
   console.log("Current fetch:"+ user)
+
+  useEffect(() => {
+    if (!user) {
+      fetchUserData(); // Fetch user data if not already available
+    }
+  }, [user, fetchUserData]);
+
+  if (loading) {
+    return <div>Loading...</div>; // Show a spinner or placeholder
+  }
+
 
   return (
     <div className="flex h-screen w-screen bg-gray-100">
@@ -55,9 +67,7 @@ export default function Dashboard() {
             {!!user && (
               <span className="text-gray-700 font-bold">Hi, {user.name}!</span>
             )}
-            <button className="bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-600">
-              Log out
-            </button>
+            <Logout></Logout>
           </div>
         </header>
 

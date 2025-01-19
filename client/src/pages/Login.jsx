@@ -1,35 +1,40 @@
-import { useState, useContext } from "react"; // Import useContext
+import { useState, useContext } from "react";
 import axios from "axios";
 import { toast } from "react-hot-toast";
 import { useNavigate } from "react-router-dom";
-import { UserContext } from "../UserContext"; // Import UserContext
 
 export default function Login() {
   const navigate = useNavigate();
-  const { setUser } = useContext(UserContext); // Access setUser from UserContext
+
 
   const [data, setData] = useState({
     email: "",
     password: "",
   });
 
-  const loginUser= async (e) => {
-    e.preventDefault()
-      const {email, password} = data
-      try {
-        const {data} = await axios.post('/login', {
-          email, password
-        });
-        if (data.error) {
-          toast.error(data.error)
-        } else {
-          setData({});
-          navigate('/dashboard')
-        }
-    } catch (error) {
-      console.error("Login error:", error.response?.data || error.message); // Log error
+  const loginUser = async (e) => {
+  e.preventDefault();
+  const { email, password } = data;
+
+  try {
+    const { data: responseData } = await axios.post(
+      "/login",
+      { email, password },
+      { withCredentials: true } // Include cookies
+    );
+
+    if (responseData.error) {
+      toast.error(responseData.error); // Display backend error
+    } else {
+      setData({ email: "", password: "" }); // Clear form
+      toast.success("Login successful");
+      navigate("/dashboard"); // Redirect to dashboard
     }
-  };
+  } catch (error) {
+    console.error("Login error:", error.response?.data || error.message);
+    toast.error(error.response?.data?.error || "Login failed");
+  }
+};
 
   return (
 
